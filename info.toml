@@ -1,0 +1,8 @@
+[meta]
+name = "Useful Information"
+author = "Miss"
+category = "Utilities"
+blocks = [ "Plugin_UsefulInformation" ]
+
+[script]
+imports = [ "Time.as", "Formatting.as" ]
