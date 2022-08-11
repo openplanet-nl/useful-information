@@ -14,18 +14,20 @@ void CopyableItem(const string &in name, int value, bool showValue = true) { Cop
 void CopyableItem(const string &in name, uint value, bool showValue = true) { CopyableItem(name, "" + value, showValue); }
 void CopyableItem(const string &in name, float value, bool showValue = true) { CopyableItem(name, "" + value, showValue); }
 
-enum ListType {
+enum ListType 
+{
 	Simple,
-	Advanced
+	Advanced,
 }
 
-string PluginsList(Meta::Plugin@[]@ &in plugins, const ListType listType) {
+string PluginsList(Meta::Plugin@[]@ plugins, ListType listType) 
+{
 	string pluginList = "";
-	for(uint i = 0; i < plugins.Length; i++) {
+	for (uint i = 0; i < plugins.Length; i++) {
 		auto plugin = plugins[i];
 		if (listType == ListType::Simple)  {
 			pluginList += SimplePluginInfo(plugin); 
-		} else if (listType == ListType::Advanced ) {
+		} else if (listType == ListType::Advanced) {
 			pluginList += AdvancedPluginInfo(plugin);
 		}
 	}
@@ -33,12 +35,14 @@ string PluginsList(Meta::Plugin@[]@ &in plugins, const ListType listType) {
 	return pluginList;
 }
 
-string SimplePluginInfo(Meta::Plugin@ &in plugin) {
+string SimplePluginInfo(Meta::Plugin@ plugin) 
+{
 	string enabledText = plugin.Enabled ? "Enabled" : "Disabled";
 	return plugin.Name + " | " + plugin.Version + " | " + enabledText + "\n";
 }
 
-string AdvancedPluginInfo(Meta::Plugin@ &in plugin) {
+string AdvancedPluginInfo(Meta::Plugin@ plugin) 
+{
 	string output = plugin.ID + "\n";
 	output += "  name: " + plugin.Name + "\n";
 	output += "  version: " + plugin.Version + "\n";
@@ -65,7 +69,7 @@ void RenderMenu()
 	auto serverInfo = cast<CGameCtnNetServerInfo>(network.ServerInfo);
 	auto userInfo = cast<CTrackManiaPlayerInfo>(network.PlayerInfo);
 
-	if(plugins !is null && UI::BeginMenu(Icons::Tasks + " Plugins")) {
+	if (plugins !is null && UI::BeginMenu(Icons::Tasks + " Plugins")) {
 		CopyableItem("Simple List", PluginsList(plugins, ListType::Simple), false);
 		CopyableItem("Advanced List", PluginsList(plugins, ListType::Advanced), false);
 		UI::EndMenu();
