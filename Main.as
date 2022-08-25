@@ -70,8 +70,12 @@ void RenderMenu()
 	auto userInfo = cast<CTrackManiaPlayerInfo>(network.PlayerInfo);
 
 	if (plugins !is null && UI::BeginMenu(Icons::Tasks + " Plugins")) {
-		CopyableItem("Simple List", PluginsList(plugins, ListType::Simple), false);
-		CopyableItem("Advanced List", PluginsList(plugins, ListType::Advanced), false);
+		if (UI::MenuItem(Icons::Clipboard + " Simple List")) {
+			IO::SetClipboard(PluginsList(plugins, ListType::Simple));
+		}
+		if (UI::MenuItem(Icons::Clipboard + " Advanced List")) {
+			IO::SetClipboard(PluginsList(plugins, ListType::Advanced));
+		}
 		UI::EndMenu();
 	}
 
