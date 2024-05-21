@@ -2,7 +2,7 @@ void CopyableItem(const string &in name, const string &in value, bool showValue 
 {
 	string itemText = Icons::Clipboard + " " + name;
 	if (showValue) {
-		itemText += "\\$999 (" + ColoredString(value) + ")";
+		itemText += "\\$999 (" + Text::OpenplanetFormatCodes(value) + ")";
 	}
 
 	if (UI::MenuItem(itemText)) {
@@ -127,7 +127,7 @@ void RenderMenu()
 				if (playerInfo is null || playerInfo is userInfo || playerInfo.Login == serverInfo.ServerLogin) {
 					continue;
 				}
-				if (UI::BeginMenu(Icons::User + " " + ColoredString(playerInfo.Name))) {
+				if (UI::BeginMenu(Icons::User + " " + Text::OpenplanetFormatCodes(playerInfo.Name))) {
 					CopyableItem("Name", playerInfo.Name);
 					CopyableItem("Login", playerInfo.Login);
 					CopyableItem("Webservices ID", playerInfo.WebServicesUserId);
