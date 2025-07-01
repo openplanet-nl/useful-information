@@ -82,7 +82,9 @@ void RenderMenu()
 	if (userInfo !is null && UI::BeginMenu(Icons::User + " Local user")) {
 		CopyableItem("Name", userInfo.Name);
 		CopyableItem("Login", userInfo.Login);
+#if TMNEXT
 		CopyableItem("Webservices ID", userInfo.WebServicesUserId);
+#endif
 		UI::EndMenu();
 	}
 
@@ -130,13 +132,17 @@ void RenderMenu()
 				if (UI::BeginMenu(Icons::User + " " + Text::OpenplanetFormatCodes(playerInfo.Name))) {
 					CopyableItem("Name", playerInfo.Name);
 					CopyableItem("Login", playerInfo.Login);
+#if TMNEXT
 					CopyableItem("Webservices ID", playerInfo.WebServicesUserId);
+#endif
 					UI::Separator();
 					CopyableItem("Language", playerInfo.Language);
+#if TMNEXT
 					CopyableItem("Trigram", playerInfo.Trigram);
 					if (playerInfo.ClubTag != "") {
 						CopyableItem("Clubtag", playerInfo.ClubTag);
 					}
+#endif
 					UI::EndMenu();
 				}
 			}
