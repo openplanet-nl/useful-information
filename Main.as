@@ -88,6 +88,26 @@ void RenderMenu()
 		UI::EndMenu();
 	}
 
+#if FOREVER
+	if (app.Challenge !is null && UI::BeginMenu(Icons::Map + " Current map")) {
+		auto map = app.Challenge;
+		CopyableItem("Name", map.ChallengeName);
+		CopyableItem("UID", map.Name);
+		auto fid = GetFidFromNod(map);
+		if (fid !is null) {
+			CopyableItem("Filename", fid.FileName);
+		}
+		CopyableItem("Coppers", map.CopperPrice);
+		UI::Separator();
+		CopyableItem("Author", map.Author);
+		UI::Separator();
+		CopyableItem("Author Time", Time::Format(map.ChallengeParameters.AuthorTime));
+		CopyableItem("Gold Time", Time::Format(map.ChallengeParameters.GoldTime));
+		CopyableItem("Silver Time", Time::Format(map.ChallengeParameters.SilverTime));
+		CopyableItem("Bronze Time", Time::Format(map.ChallengeParameters.BronzeTime));
+		UI::EndMenu();
+	}
+#else
 	if (app.RootMap !is null && UI::BeginMenu(Icons::Map + " Current map")) {
 		auto mapInfo = app.RootMap.MapInfo;
 		CopyableItem("Name", mapInfo.Name);
@@ -104,12 +124,23 @@ void RenderMenu()
 		CopyableItem("Bronze Time", Time::Format(mapInfo.TMObjective_BronzeTime));
 		UI::EndMenu();
 	}
+#endif
 
-	if (serverInfo !is null && serverInfo.ServerLogin != "" && UI::BeginMenu(Icons::Server + " Current server")) {
+#if FOREVER
+	string serverLogin = serverInfo.ServerHostName;
+#else
+	string serverLogin = serverInfo.ServerLogin;
+#endif
+
+	if (serverInfo !is null && serverLogin != "" && UI::BeginMenu(Icons::Server + " Current server")) {
 		CopyableItem("Name", serverInfo.ServerName);
-		CopyableItem("Login", serverInfo.ServerLogin);
+#if FOREVER
+		CopyableItem("Hostname", serverLogin);
+#else
+		CopyableItem("Login", serverLogin);
 		CopyableItem("Joinlink", serverInfo.JoinLink);
 		CopyableItem("Version", serverInfo.ServerVersionBuild);
+#endif
 
 		if (client.Connections.Length > 0) {
 			auto connection = client.Connections[0];
@@ -126,7 +157,7 @@ void RenderMenu()
 		if (UI::BeginMenu(Icons::Users + " Players")) {
 			for (uint i = 0; i < network.PlayerInfos.Length; i++) {
 				auto playerInfo = cast<CTrackManiaPlayerInfo>(network.PlayerInfos[i]);
-				if (playerInfo is null || playerInfo is userInfo || playerInfo.Login == serverInfo.ServerLogin) {
+				if (playerInfo is null || playerInfo is userInfo || playerInfo.Login == serverLogin) {
 					continue;
 				}
 				if (UI::BeginMenu(Icons::User + " " + Text::OpenplanetFormatCodes(playerInfo.Name))) {
