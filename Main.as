@@ -114,6 +114,7 @@ void RenderMenu()
 		CopyableItem("UID", mapInfo.MapUid);
 		CopyableItem("Filename", mapInfo.FileName);
 		CopyableItem("Coppers", mapInfo.CopperString);
+		CopyableItem("Type", mapInfo.MapType);
 		UI::Separator();
 		CopyableItem("Author", mapInfo.AuthorNickName);
 		CopyableItem("Author Login", mapInfo.AuthorLogin);
