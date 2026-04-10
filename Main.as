@@ -88,18 +88,28 @@ void RenderMenu()
 		UI::EndMenu();
 	}
 
-#if FOREVER
+#if TURBO || FOREVER
 	if (app.Challenge !is null && UI::BeginMenu(Icons::Map + " Current map")) {
 		auto map = app.Challenge;
+#if FOREVER
 		CopyableItem("Name", map.ChallengeName);
 		CopyableItem("UID", map.Name);
+#else
+		CopyableItem("Name", map.MapName);
+		CopyableItem("UID", map.MapInfo.MapUid);
+#endif
 		auto fid = GetFidFromNod(map);
 		if (fid !is null) {
 			CopyableItem("Filename", fid.FileName);
 		}
 		CopyableItem("Coppers", map.CopperPrice);
 		UI::Separator();
+#if FOREVER
 		CopyableItem("Author", map.Author);
+#else
+		CopyableItem("Author", map.AuthorNickName);
+		CopyableItem("Author Login", map.AuthorLogin);
+#endif
 		UI::Separator();
 		CopyableItem("Author Time", Time::Format(map.ChallengeParameters.AuthorTime));
 		CopyableItem("Gold Time", Time::Format(map.ChallengeParameters.GoldTime));
