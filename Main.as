@@ -122,6 +122,7 @@ void RenderMenu()
 		auto mapInfo = app.RootMap.MapInfo;
 		CopyableItem("Name", mapInfo.Name);
 		CopyableItem("UID", mapInfo.MapUid);
+		CopyableItem("Play URL", Meta::FromUrlProtocol("play/nadeo/" + mapInfo.MapUid));
 		CopyableItem("Filename", mapInfo.FileName);
 		CopyableItem("Coppers", mapInfo.CopperString);
 		CopyableItem("Type", mapInfo.MapType);
