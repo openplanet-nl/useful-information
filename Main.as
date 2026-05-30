@@ -122,7 +122,6 @@ void RenderMenu()
 		auto mapInfo = app.RootMap.MapInfo;
 		CopyableItem("Name", mapInfo.Name);
 		CopyableItem("UID", mapInfo.MapUid);
-		CopyableItem("Play URL", Meta::FromUrlProtocol("play/nadeo/" + mapInfo.MapUid));
 		CopyableItem("Filename", mapInfo.FileName);
 		CopyableItem("Coppers", mapInfo.CopperString);
 		CopyableItem("Type", mapInfo.MapType);
@@ -134,6 +133,8 @@ void RenderMenu()
 		CopyableItem("Gold Time", Time::Format(mapInfo.TMObjective_GoldTime));
 		CopyableItem("Silver Time", Time::Format(mapInfo.TMObjective_SilverTime));
 		CopyableItem("Bronze Time", Time::Format(mapInfo.TMObjective_BronzeTime));
+		UI::Separator();
+		CopyableItem("Play URL", Meta::FromUrlProtocol("play/nadeo/" + mapInfo.MapUid));
 		UI::EndMenu();
 	}
 #endif
